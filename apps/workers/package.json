@@ -6,7 +6,7 @@
     "dev": "dotenv -e ../../.env -- nest start --watch --entryFile=./apps/workers/src/main",
     "build": "NODE_ENV=production nest build",
     "start": "dotenv -e ../../.env -- node ./dist/apps/workers/src/main.js",
-    "pm2": "pm2 start pnpm --name workers -- start"
+    "pm2": "pm2 start bun --name workers -- start"
   },
   "keywords": [],
   "author": "",

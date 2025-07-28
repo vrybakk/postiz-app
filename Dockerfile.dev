@@ -1,8 +1,8 @@
-FROM node:20-alpine3.19
+FROM oven/bun:1-alpine
 ARG NEXT_PUBLIC_VERSION
 ENV NEXT_PUBLIC_VERSION=$NEXT_PUBLIC_VERSION
 RUN apk add --no-cache g++ make py3-pip supervisor bash caddy
-RUN npm --no-update-notifier --no-fund --global install pnpm@10.6.1 pm2
+RUN npm --no-update-notifier --no-fund --global install pm2
 
 WORKDIR /app
 
@@ -13,9 +13,9 @@ COPY var/docker/entrypoint.sh /app/entrypoint.sh
 COPY var/docker/supervisord/caddy.conf /etc/supervisor.d/caddy.conf
 RUN chmod +x /app/entrypoint.sh
 
-RUN pnpm install
-RUN pnpm run build
+RUN bun install
+RUN bun run build
 
 EXPOSE 4200
 
-CMD ["pnpm", "run", "pm2"]
+CMD ["bun", "run", "pm2"]
